@@ -1,7 +1,6 @@
 package com.orangetalents.casadocodigo.autor;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import org.hibernate.validator.constraints.Length;
+import com.orangetalents.casadocodigo.validation.UniqueEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +11,7 @@ public class AutorForm {
     @NotBlank
     private String nome;
 
-    @Email @NotBlank
+    @Email @NotBlank @UniqueEmail
     private String email;
 
     @NotBlank @Size(max = 400)
