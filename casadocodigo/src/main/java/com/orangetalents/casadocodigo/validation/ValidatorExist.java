@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class ValidatorExist implements ConstraintValidator<Exist, String> {
+public class ValidatorExist implements ConstraintValidator<Exist, Integer> {
     private String atributo;
     private Class<?> klass;
     @PersistenceContext
@@ -20,7 +20,7 @@ public class ValidatorExist implements ConstraintValidator<Exist, String> {
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {
         Query query = em.createQuery("SELECT 1 FROM " + klass.getName() + " where " + atributo + "=:value");
         query.setParameter("value", value);
 

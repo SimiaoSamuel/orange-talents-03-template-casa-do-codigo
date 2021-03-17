@@ -71,6 +71,10 @@ public class Livro {
         return autor;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroDePaginas,
                  String isbn, LocalDate dataPublicacao, Categoria categoria, Autor autor) {
         this.titulo = titulo;

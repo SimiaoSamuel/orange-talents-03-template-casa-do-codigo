@@ -6,8 +6,12 @@ import com.orangetalents.casadocodigo.categoria.Categoria;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LivroDto {
+    private Integer id;
+
     private String titulo;
 
     private String resumo;
@@ -64,6 +68,7 @@ public class LivroDto {
     }
 
     public LivroDto(Livro livro) {
+        this.id = livro.getId();
         this.titulo = livro.getTitulo();
         this.resumo = livro.getResumo();
         this.sumario = livro.getSumario();
@@ -73,5 +78,9 @@ public class LivroDto {
         this.dataPublicacao = livro.getDataPublicacao();
         this.categoria = livro.getCategoria().getNome();
         this.autor = livro.getAutor().getNome();
+    }
+
+    public static List<LivroDto> toListOfLivroDto(List<Livro> livros){
+        return livros.stream().map(LivroDto::new).collect(Collectors.toList());
     }
 }

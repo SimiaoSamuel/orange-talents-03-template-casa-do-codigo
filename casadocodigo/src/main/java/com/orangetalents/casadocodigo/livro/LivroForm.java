@@ -48,30 +48,30 @@ public class LivroForm {
         this.dataPublicacao = dataPublicacao;
     }
 
-    @NotBlank
-    @Exist(fieldName = "nome", domainClass = Categoria.class)
-    private String categoria;
+    @NotNull
+    @Exist(fieldName = "id", domainClass = Categoria.class)
+    private Integer categoriaId;
 
-    @NotBlank
-    @Exist(fieldName = "nome", domainClass = Autor.class)
-    private String autor;
+    @NotNull
+    @Exist(fieldName = "id", domainClass = Autor.class)
+    private Integer autorId;
 
     public Livro toLivro(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
-        Optional<Categoria> categoriaEncontrada = categoriaRepository.findByNomeIgnoreCase(categoria);
-        Optional<Autor> autorEncontrado = autorRepository.findByNome(autor);
+        Optional<Categoria> categoriaEncontrada = categoriaRepository.findById(categoriaId);
+        Optional<Autor> autorEncontrado = autorRepository.findById(autorId);
         return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataPublicacao,
                     categoriaEncontrada.get(), autorEncontrado.get());
     }
 
     public LivroForm(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroDePaginas,
-                     String isbn, String categoria, String autor) {
+                     String isbn, Integer categoria, Integer autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
         this.preco = preco;
         this.numeroDePaginas = numeroDePaginas;
         this.isbn = isbn;
-        this.categoria = categoria;
-        this.autor = autor;
+        this.categoriaId = categoria;
+        this.autorId = autor;
     }
 }

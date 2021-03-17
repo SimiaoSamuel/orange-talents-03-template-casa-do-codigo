@@ -11,6 +11,10 @@ public class Categoria {
     @Column(unique = true)
     private String nome;
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
