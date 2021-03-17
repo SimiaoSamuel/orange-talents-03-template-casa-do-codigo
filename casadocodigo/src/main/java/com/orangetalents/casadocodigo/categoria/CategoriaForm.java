@@ -1,7 +1,6 @@
 package com.orangetalents.casadocodigo.categoria;
 
 import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
-import com.orangetalents.casadocodigo.validation.UniqueCategoriaNome;
 
 import javax.validation.constraints.NotBlank;
 

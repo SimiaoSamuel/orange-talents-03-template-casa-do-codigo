@@ -1,7 +1,6 @@
 package com.orangetalents.casadocodigo.autor;
 
 import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
-import com.orangetalents.casadocodigo.validation.UniqueEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

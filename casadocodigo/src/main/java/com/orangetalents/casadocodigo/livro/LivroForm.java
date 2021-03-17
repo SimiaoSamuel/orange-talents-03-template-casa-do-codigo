@@ -5,6 +5,7 @@ import com.orangetalents.casadocodigo.autor.Autor;
 import com.orangetalents.casadocodigo.autor.AutorRepository;
 import com.orangetalents.casadocodigo.categoria.Categoria;
 import com.orangetalents.casadocodigo.categoria.CategoriaRepository;
+import com.orangetalents.casadocodigo.validation.Exist;
 import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
 
 import javax.persistence.Temporal;
@@ -48,18 +49,18 @@ public class LivroForm {
     }
 
     @NotBlank
+    @Exist(fieldName = "nome", domainClass = Categoria.class)
     private String categoria;
 
     @NotBlank
+    @Exist(fieldName = "nome", domainClass = Autor.class)
     private String autor;
 
     public Livro toLivro(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
         Optional<Categoria> categoriaEncontrada = categoriaRepository.findByNomeIgnoreCase(categoria);
         Optional<Autor> autorEncontrado = autorRepository.findByNome(autor);
-        if (categoriaEncontrada.isPresent() && autorEncontrado.isPresent())
-            return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataPublicacao,
+        return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataPublicacao,
                     categoriaEncontrada.get(), autorEncontrado.get());
-        return null;
     }
 
     public LivroForm(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroDePaginas,
