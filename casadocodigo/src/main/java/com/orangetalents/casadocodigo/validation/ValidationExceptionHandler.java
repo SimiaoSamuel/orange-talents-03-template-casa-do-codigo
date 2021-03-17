@@ -18,15 +18,15 @@ public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        
+
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         List<ValidationExceptionDto> errors = new ArrayList<>();
 
         fieldErrors.forEach(e -> {
-            ValidationExceptionDto erro = new ValidationExceptionDto(e.getField(),e.getDefaultMessage());
+            ValidationExceptionDto erro = new ValidationExceptionDto(e.getField(), e.getDefaultMessage());
             errors.add(erro);
         });
 
-        return new ResponseEntity<>(errors,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,18 +1,20 @@
 package com.orangetalents.casadocodigo.categoria;
 
+import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
 import com.orangetalents.casadocodigo.validation.UniqueCategoriaNome;
 
 import javax.validation.constraints.NotBlank;
 
 public class CategoriaForm {
-    @NotBlank @UniqueCategoriaNome
+    @NotBlank
+    @NotDuplicatedGenerico(domainClass = Categoria.class, fieldName = "nome")
     private String nome;
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public Categoria toCategoria(){
+    public Categoria toCategoria() {
         return new Categoria(nome);
     }
 }

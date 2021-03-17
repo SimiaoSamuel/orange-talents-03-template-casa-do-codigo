@@ -7,13 +7,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = ValidatorGenerico.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueEmail {
-    String message() default "Email duplicado, por favor digite outro";
+public @interface NotDuplicatedGenerico {
+    String message() default "Valor já existe no banco!";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String fieldName();
+
+    Class<?> domainClass();
 }

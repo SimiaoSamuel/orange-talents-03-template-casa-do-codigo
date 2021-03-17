@@ -12,6 +12,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueCategoriaNome {
     String message() default "Já existe uma categoria com esse nome registrada!";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

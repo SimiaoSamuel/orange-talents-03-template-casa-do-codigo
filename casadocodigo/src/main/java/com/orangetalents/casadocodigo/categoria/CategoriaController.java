@@ -16,7 +16,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDto> saveCategoria(@RequestBody @Valid CategoriaForm categoriaForm){
+    public ResponseEntity<CategoriaDto> saveCategoria(@RequestBody @Valid CategoriaForm categoriaForm) {
         Categoria categoria = categoriaForm.toCategoria();
         categoriaRepository.save(categoria);
         CategoriaDto categoriaDto = new CategoriaDto(categoria);

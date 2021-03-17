@@ -5,7 +5,7 @@ import com.orangetalents.casadocodigo.categoria.CategoriaRepository;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CategoriaValidator implements ConstraintValidator<UniqueCategoriaNome,String> {
+public class CategoriaValidator implements ConstraintValidator<UniqueCategoriaNome, String> {
 
     private final CategoriaRepository categoriaRepository;
 

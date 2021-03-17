@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Optional;
 
-public class EmailValidator implements ConstraintValidator<UniqueEmail,String> {
+public class EmailValidator implements ConstraintValidator<UniqueEmail, String> {
 
     private final AutorRepository autorRepository;
 

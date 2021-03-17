@@ -18,7 +18,7 @@ public class AutorController {
     }
 
     @PostMapping
-    public ResponseEntity<AutorDto> saveAutor(@RequestBody @Valid AutorForm autorForm, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<AutorDto> saveAutor(@RequestBody @Valid AutorForm autorForm, UriComponentsBuilder uriBuilder) {
         Autor autor = autorForm.toAutor();
         autorRepository.save(autor);
         AutorDto autorDto = new AutorDto(autor);
