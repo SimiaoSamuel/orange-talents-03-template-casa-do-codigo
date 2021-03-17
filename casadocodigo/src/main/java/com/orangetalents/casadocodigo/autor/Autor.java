@@ -18,7 +18,7 @@ public class Autor {
     @Column(length = 400, nullable = false)
     private String descricao;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private LocalDateTime instanteDeCriacao;
 
     public Integer getId() {
