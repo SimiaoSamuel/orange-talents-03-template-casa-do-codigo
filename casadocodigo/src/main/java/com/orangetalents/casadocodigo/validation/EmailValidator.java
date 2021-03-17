@@ -5,7 +5,6 @@ import com.orangetalents.casadocodigo.autor.AutorRepository;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Locale;
 import java.util.Optional;
 
 public class EmailValidator implements ConstraintValidator<UniqueEmail,String> {
@@ -22,7 +21,7 @@ public class EmailValidator implements ConstraintValidator<UniqueEmail,String> {
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        Optional<Autor> byEmail = autorRepository.findByEmail(email);
+        Optional<Autor> byEmail = autorRepository.findByEmailIgnoreCase(email);
         return byEmail.isEmpty();
     }
 }
