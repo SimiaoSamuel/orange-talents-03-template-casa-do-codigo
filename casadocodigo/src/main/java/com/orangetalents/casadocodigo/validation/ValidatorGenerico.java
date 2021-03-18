@@ -25,8 +25,8 @@ public class ValidatorGenerico implements ConstraintValidator<NotDuplicatedGener
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        Query query = em.createQuery("SELECT 1 FROM " + klass.getName() + " where " + atributo + "=:value");
-        query.setParameter("value", value);
+        Query query = em.createQuery("SELECT 1 FROM " + klass.getName() + " where lower(" + atributo + ") =:value");
+        query.setParameter("value", value.toLowerCase());
 
         List<?> lista = query.getResultList();
         return lista.size() < 1;

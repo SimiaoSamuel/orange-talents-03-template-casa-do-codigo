@@ -15,24 +15,33 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     private String titulo;
 
+    @Column(nullable = false, length = 500)
     private String resumo;
 
+    @Column(nullable = false)
     private String sumario;
 
+    @Column(nullable = false, precision = 5, scale = 2)
     private BigDecimal preco;
 
+    @Column(nullable = false)
     private Integer numeroDePaginas;
 
+    @Column(nullable = false, unique = true)
     private String isbn;
 
+    @Column(nullable = false)
     private LocalDate dataPublicacao;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Categoria categoria;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Autor autor;
 
     public String getTitulo() {

@@ -8,6 +8,10 @@ public class CategoriaDto {
         return nome;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public CategoriaDto(Categoria categoria) {
         this.nome = categoria.getNome();
         this.id = categoria.getId();

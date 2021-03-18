@@ -3,6 +3,7 @@ package com.orangetalents.casadocodigo.categoria;
 import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Locale;
 
 public class CategoriaForm {
     @NotBlank
