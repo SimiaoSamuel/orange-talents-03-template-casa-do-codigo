@@ -64,14 +64,29 @@ public class LivroForm {
     }
 
     public LivroForm(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroDePaginas,
-                     String isbn, Integer categoria, Integer autor) {
+                     String isbn, Integer categoriaId, Integer autorId) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
         this.preco = preco;
         this.numeroDePaginas = numeroDePaginas;
         this.isbn = isbn;
-        this.categoriaId = categoria;
-        this.autorId = autor;
+        this.categoriaId = categoriaId;
+        this.autorId = autorId;
+    }
+
+    @Override
+    public String toString() {
+        return "LivroForm{" +
+                "titulo='" + titulo + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", preco=" + preco +
+                ", numeroDePaginas=" + numeroDePaginas +
+                ", isbn='" + isbn + '\'' +
+                ", dataPublicacao=" + dataPublicacao +
+                ", categoriaId=" + categoriaId +
+                ", autorId=" + autorId +
+                '}';
     }
 }
