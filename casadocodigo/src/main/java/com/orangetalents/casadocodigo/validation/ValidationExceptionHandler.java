@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +23,7 @@ public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
+        List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         List<ValidationExceptionDto> errors = new ArrayList<>();
 
@@ -30,9 +32,16 @@ public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(erro);
         });
 
+        globalErrors.forEach(e -> {
+            ValidationExceptionDto erro = new ValidationExceptionDto(e.getObjectName(), e.getDefaultMessage());
+            errors.add(erro);
+        });
+
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+
+    /*
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handlerRuntimeException(RuntimeException exception){
         Map<String, String> error = new HashMap<>();
@@ -40,4 +49,5 @@ public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
         error.put("status",HttpStatus.BAD_REQUEST.toString());
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
     }
+     */
 }

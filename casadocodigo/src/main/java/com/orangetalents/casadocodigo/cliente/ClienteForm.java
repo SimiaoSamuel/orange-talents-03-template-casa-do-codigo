@@ -6,16 +6,14 @@ import com.orangetalents.casadocodigo.estadopais.Pais;
 import com.orangetalents.casadocodigo.estadopais.PaisRepository;
 import com.orangetalents.casadocodigo.validation.Exist;
 import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
+import com.orangetalents.casadocodigo.validation.ValidationStateCountry;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.List;
-import java.util.Optional;
 
+@ValidationStateCountry
 public class ClienteForm {
     @NotBlank
     @Email
@@ -33,8 +31,10 @@ public class ClienteForm {
      * E vi que usava regex, então eu fui procurar no google como que faz regex já que não lembrava muito bem
      * talvez não seja a melhor solução, mas foi a que eu pensei
      */
-    @Pattern(regexp = "([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})", message = "CPF OU CNPJ Invalido!")
-    @NotBlank @NotDuplicatedGenerico(domainClass = Cliente.class, fieldName = "documento")
+    @Pattern(regexp = "([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})",
+            message = "CPF/CNPJ Errado")
+    @NotBlank
+    @NotDuplicatedGenerico(domainClass = Cliente.class, fieldName = "documento")
     private String documento;
 
     @NotBlank
@@ -52,13 +52,24 @@ public class ClienteForm {
 
     private Integer estadoId;
 
+    public Integer getPaisId() {
+        return paisId;
+    }
+
+    public Integer getEstadoId() {
+        return estadoId;
+    }
+
     @NotBlank
     private String telefone;
 
     @NotBlank
     private String cep;
 
-    public ClienteForm(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @CPF @CNPJ @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Integer paisId, @NotNull Integer estadoId, @NotBlank String telefone, @NotBlank String cep) {
+    public ClienteForm(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome,
+                       @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento,
+                       @NotBlank String cidade, @NotNull Integer paisId,
+                       Integer estadoId, @NotBlank String telefone, @NotBlank String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -72,12 +83,14 @@ public class ClienteForm {
         this.cep = cep;
     }
 
-    public Cliente toCliente(EstadoRepository estadoRepository, PaisRepository paisRepository){
-
-        Pais pais = paisRepository.findById(paisId).get();
-        List<Estado> estado = estadoRepository.findByPais(pais);
+    public Cliente toCliente(EstadoRepository estadoRepository, PaisRepository paisRepository) {
+        Pais pais = paisRepository.getOne(paisId);
         Estado estadoValidated = null;
 
+        if (estadoId != null)
+            estadoValidated = estadoRepository.getOne(estadoId);
+
+        /*
         boolean isValuePresent = !estado.isEmpty();
 
         if(isValuePresent && estadoId == null) {
@@ -90,9 +103,9 @@ public class ClienteForm {
         else if(estadoId != null){
             throw new RuntimeException("Esse país não tem estado!");
         }
-
+*/
         return new Cliente(
-                email,nome,sobrenome,documento,endereco,complemento,cidade,estadoValidated,pais,telefone,cep
+                email, nome, sobrenome, documento, endereco, complemento, cidade, estadoValidated, pais, telefone, cep
         );
     }
 }
