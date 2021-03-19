@@ -4,9 +4,12 @@ import com.orangetalents.casadocodigo.estadopais.Estado;
 import com.orangetalents.casadocodigo.estadopais.EstadoRepository;
 import com.orangetalents.casadocodigo.estadopais.Pais;
 import com.orangetalents.casadocodigo.estadopais.PaisRepository;
+import com.orangetalents.casadocodigo.validation.CPFandCnpj;
 import com.orangetalents.casadocodigo.validation.Exist;
 import com.orangetalents.casadocodigo.validation.NotDuplicatedGenerico;
 import com.orangetalents.casadocodigo.validation.ValidationStateCountry;
+import org.hibernate.validator.constraints.CompositionType;
+import org.hibernate.validator.constraints.ConstraintComposition;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +22,11 @@ public class ClienteForm {
     @Email
     @NotDuplicatedGenerico(domainClass = Cliente.class, fieldName = "email")
     private String email;
+    
+    @CPFandCnpj
+    @NotBlank
+    @NotDuplicatedGenerico(domainClass = Cliente.class, fieldName = "documento")
+    private String documento;
 
     @NotBlank
     private String nome;
@@ -26,16 +34,6 @@ public class ClienteForm {
     @NotBlank
     private String sobrenome;
 
-    /***
-     * Tava em duvida de como fazer essa parte, ai eu olhei na implementação do @CPF e @CNPJ
-     * E vi que usava regex, então eu fui procurar no google como que faz regex já que não lembrava muito bem
-     * talvez não seja a melhor solução, mas foi a que eu pensei
-     */
-    @Pattern(regexp = "([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})",
-            message = "CPF/CNPJ Errado")
-    @NotBlank
-    @NotDuplicatedGenerico(domainClass = Cliente.class, fieldName = "documento")
-    private String documento;
 
     @NotBlank
     private String endereco;
