@@ -33,4 +33,8 @@ public class Estado {
         this.nome = nome;
         this.pais = pais;
     }
+
+    @Deprecated
+    public Estado() {
+    }
 }

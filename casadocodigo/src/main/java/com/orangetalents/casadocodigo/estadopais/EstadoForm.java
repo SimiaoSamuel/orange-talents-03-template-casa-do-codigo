@@ -20,7 +20,7 @@ public class EstadoForm {
         return new Estado(nome,pais);
     }
 
-    public EstadoForm(String nome,Integer paisId) {
+    public EstadoForm(@NotBlank String nome,@NotNull Integer paisId) {
         this.nome = nome;
         this.paisId = paisId;
     }

@@ -27,7 +27,7 @@ public class AutorForm {
         return new Autor(nome, email, descricao, instanteDeCriacao);
     }
 
-    public AutorForm(String nome, String email, String descricao) {
+    public AutorForm(@NotBlank String nome,@NotBlank @Email String email,@NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;

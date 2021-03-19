@@ -63,8 +63,10 @@ public class LivroForm {
                     categoriaEncontrada.get(), autorEncontrado.get());
     }
 
-    public LivroForm(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroDePaginas,
-                     String isbn, Integer categoriaId, Integer autorId) {
+    public LivroForm(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, @NotBlank String sumario,
+                     @NotNull @Min(value = 20) BigDecimal preco, @NotNull @Min(value = 100) Integer numeroDePaginas,
+                     @NotBlank String isbn, @NotNull Integer categoriaId,
+                     @NotNull Integer autorId) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -73,20 +75,5 @@ public class LivroForm {
         this.isbn = isbn;
         this.categoriaId = categoriaId;
         this.autorId = autorId;
-    }
-
-    @Override
-    public String toString() {
-        return "LivroForm{" +
-                "titulo='" + titulo + '\'' +
-                ", resumo='" + resumo + '\'' +
-                ", sumario='" + sumario + '\'' +
-                ", preco=" + preco +
-                ", numeroDePaginas=" + numeroDePaginas +
-                ", isbn='" + isbn + '\'' +
-                ", dataPublicacao=" + dataPublicacao +
-                ", categoriaId=" + categoriaId +
-                ", autorId=" + autorId +
-                '}';
     }
 }
